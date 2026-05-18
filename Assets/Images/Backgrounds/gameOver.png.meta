@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4f33f7d34462e9d4cb0c04cefb44d786
+guid: 432a98dfc0412ca47882171cb9ad1dfd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9202821664475214471
-    second: entrada_faculdade_0
+      213: 7611342515684761092
+    second: gameOver_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: entrada_faculdade_0
+      name: gameOver_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 78270529b8df6bf70800000000000000
-      internalID: 9202821664475214471
+      spriteID: 40ed73ff0bbe0a960800000000000000
+      internalID: 7611342515684761092
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      entrada_faculdade_0: 9202821664475214471
+      gameOver_0: 7611342515684761092
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
