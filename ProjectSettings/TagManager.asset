@@ -7,11 +7,12 @@ TagManager:
   - Ground
   - Obstacle
   - Collectible
+  - Coffee
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 

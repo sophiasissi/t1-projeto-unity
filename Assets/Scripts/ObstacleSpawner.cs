@@ -4,41 +4,24 @@ public class ObstacleSpawner : MonoBehaviour
 {
     public GameObject[] obstaclePrefabs;
 
+    public float[] lanes = { -2f, 0f, 2f };
+    public float spawnY = 6f;
+
+    public float startDelay = 1.5f;
     public float spawnInterval = 2f;
-    public float minSpawnInterval = 0.9f;
-    public float difficultyDecrease = 0.05f;
 
-    private float timer = 0f;
-
-    void Update()
+    void Start()
     {
-        if (GameManager.instance != null && !GameManager.instance.gameRunning)
-        {
-            return;
-        }
-
-        timer += Time.deltaTime;
-
-        if (timer >= spawnInterval)
-        {
-            SpawnObstacle();
-            timer = 0f;
-
-            if (spawnInterval > minSpawnInterval)
-            {
-                spawnInterval -= difficultyDecrease;
-            }
-        }
+        InvokeRepeating(nameof(SpawnObstacle), startDelay, spawnInterval);
     }
 
     void SpawnObstacle()
     {
-        int randomIndex = Random.Range(0, obstaclePrefabs.Length);
+        int laneIndex = Random.Range(0, lanes.Length);
+        int obstacleIndex = Random.Range(0, obstaclePrefabs.Length);
 
-        Instantiate(
-            obstaclePrefabs[randomIndex],
-            transform.position,
-            Quaternion.identity
-        );
+        Vector3 spawnPosition = new Vector3(lanes[laneIndex], spawnY, 0f);
+
+        Instantiate(obstaclePrefabs[obstacleIndex], spawnPosition, Quaternion.identity);
     }
 }

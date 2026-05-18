@@ -6,58 +6,57 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    [Header("Controle")]
     public bool gameRunning = true;
 
+    [Header("HUD")]
     public TMP_Text scoreText;
     public TMP_Text coffeeText;
     public TMP_Text tutorialText;
+    public TMP_Text phaseText;
 
-    public GameObject gameOverPanel;
+    [Header("Configuração da fase")]
+    public string phaseName = "Fase 1 - Tutorial";
+    public string nextSceneName = "Level2Scene";
+    public int coffeesToFinishLevel = 5;
 
     private int score = 0;
     private int coffeeCount = 0;
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
+        instance = this;
     }
 
     void Start()
     {
-        Time.timeScale = 1;
+        Time.timeScale = 1f;
         gameRunning = true;
-
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(false);
-        }
 
         UpdateUI();
 
-        if (tutorialText != null)
+        if (phaseText != null)
         {
-            tutorialText.text = "Pressione ESPAÇO para pular!";
+            phaseText.text = phaseName;
         }
     }
 
-    void Update()
+    public void AddCoffee()
     {
-        if (!gameRunning)
-        {
-            return;
-        }
+        coffeeCount++;
+        score += 100;
 
-        score += Mathf.RoundToInt(Time.deltaTime * 5);
         UpdateUI();
+
+        if (coffeeCount >= coffeesToFinishLevel)
+        {
+            FinishLevel();
+        }
     }
 
     public void AddScore(int points)
     {
         score += points;
-        coffeeCount++;
         UpdateUI();
     }
 
@@ -70,29 +69,33 @@ public class GameManager : MonoBehaviour
 
         if (coffeeText != null)
         {
-            coffeeText.text = "Cafés: " + coffeeCount;
+            coffeeText.text = "Cafés: " + coffeeCount + "/" + coffeesToFinishLevel;
+        }
+    }
+
+    public void SetTutorialText(string message)
+    {
+        if (tutorialText != null)
+        {
+            tutorialText.text = message;
         }
     }
 
     public void GameOver()
     {
         gameRunning = false;
-        Time.timeScale = 0;
-
-        if (tutorialText != null)
-        {
-            tutorialText.text = "Você se atrasou para a aula!";
-        }
-
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(true);
-        }
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("GameOverScene");
     }
 
-    public void RestartLevel()
+    public void FinishLevel()
     {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        gameRunning = false;
+        Time.timeScale = 1f;
+
+        if (!string.IsNullOrEmpty(nextSceneName))
+        {
+            SceneManager.LoadScene(nextSceneName);
+        }
     }
 }
