@@ -22,6 +22,8 @@ public class CollectibleSpawner : MonoBehaviour
     void Start()
     {
         timer = 0f;
+        canSpawn = false;
+
         Invoke(nameof(EnableSpawn), startDelay);
     }
 
@@ -56,11 +58,13 @@ public class CollectibleSpawner : MonoBehaviour
     {
         if (collectiblePrefab == null)
         {
+            Debug.LogWarning("CollectibleSpawner: collectiblePrefab não foi colocado no Inspector.");
             return;
         }
 
         if (lanes == null || lanes.Length == 0)
         {
+            Debug.LogWarning("CollectibleSpawner: nenhuma faixa foi configurada.");
             return;
         }
 

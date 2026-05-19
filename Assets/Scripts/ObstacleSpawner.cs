@@ -58,7 +58,7 @@ public class ObstacleSpawner : MonoBehaviour
     {
         if (obstaclePrefabs == null || obstaclePrefabs.Length == 0)
         {
-            Debug.LogWarning("ObstacleSpawner: nenhum prefab de obstáculo foi colocado no Inspector.");
+            Debug.LogWarning("ObstacleSpawner: nenhum prefab foi colocado no Inspector.");
             return;
         }
 

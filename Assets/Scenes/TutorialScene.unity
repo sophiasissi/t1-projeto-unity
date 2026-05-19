@@ -3844,9 +3844,10 @@ MonoBehaviour:
   - 2.2
   currentLane: 1
   laneMoveSpeed: 10
-  jumpForce: 8
+  jumpForce: 7
   maxJumps: 2
-  jumpActionDuration: 1.4
+  jumpActionDuration: 1
+  groundTolerance: 0.25
   tutorialMode: 0
   allowedCommand: 0
 --- !u!114 &2064972850
