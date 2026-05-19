@@ -1808,7 +1808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1817900460
 Transform:
   m_ObjectHideFlags: 0
@@ -1844,6 +1844,7 @@ MonoBehaviour:
   spawnY: 6
   startDelay: 2
   spawnInterval: 3
+  objectSpeed: 5
 --- !u!1 &1836009758
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,7 +1970,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1984211950
 Transform:
   m_ObjectHideFlags: 0
@@ -2011,6 +2012,7 @@ MonoBehaviour:
   spawnY: 6
   startDelay: 1
   spawnInterval: 1.4
+  objectSpeed: 5
 --- !u!1 &1988197867
 GameObject:
   m_ObjectHideFlags: 0
@@ -2444,12 +2446,9 @@ MonoBehaviour:
   currentLane: 1
   laneMoveSpeed: 10
   jumpForce: 7
-  groundCheck: {fileID: 0}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  groundCheckRadius: 0.15
+  maxJumps: 2
   jumpActionDuration: 1
+  groundTolerance: 0.25
   tutorialMode: 0
   allowedCommand: 0
 --- !u!114 &2064972850

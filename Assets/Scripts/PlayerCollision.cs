@@ -42,7 +42,6 @@ public class PlayerCollision : MonoBehaviour
         {
             if (playerController != null && playerController.IsJumping)
             {
-                // Passou por cima da catraca.
                 return;
             }
         }

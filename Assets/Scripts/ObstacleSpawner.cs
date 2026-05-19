@@ -11,13 +11,20 @@ public class ObstacleSpawner : MonoBehaviour
 
     [Header("Tempo")]
     public float startDelay = 1f;
-    public float spawnInterval = 1.5f;
+    public float spawnInterval = 1.4f;
 
     [Header("Velocidade da fase")]
     public float objectSpeed = 5f;
 
+    [Header("Controle de repetição")]
+    public int maxSameLaneInSequence = 2;
+    public float chanceToForceDifferentLane = 0.7f;
+
     private float timer = 0f;
     private bool canSpawn = false;
+
+    private int lastLaneIndex = -1;
+    private int sameLaneCount = 0;
 
     void Start()
     {
@@ -68,17 +75,17 @@ public class ObstacleSpawner : MonoBehaviour
             return;
         }
 
-        int randomLaneIndex = Random.Range(0, lanes.Length);
-        int randomObstacleIndex = Random.Range(0, obstaclePrefabs.Length);
+        int laneIndex = ChooseLaneIndex();
+        int obstacleIndex = Random.Range(0, obstaclePrefabs.Length);
 
         Vector3 spawnPosition = new Vector3(
-            lanes[randomLaneIndex],
+            lanes[laneIndex],
             spawnY,
             0f
         );
 
         GameObject newObstacle = Instantiate(
-            obstaclePrefabs[randomObstacleIndex],
+            obstaclePrefabs[obstacleIndex],
             spawnPosition,
             Quaternion.identity
         );
@@ -89,5 +96,36 @@ public class ObstacleSpawner : MonoBehaviour
         {
             mover.speed = objectSpeed;
         }
+    }
+
+    int ChooseLaneIndex()
+    {
+        int selectedLaneIndex = Random.Range(0, lanes.Length);
+
+        bool repeatedTooMuch = lastLaneIndex != -1 && sameLaneCount >= maxSameLaneInSequence;
+        bool shouldTryDifferentLane = lastLaneIndex != -1 && Random.value < chanceToForceDifferentLane;
+
+        if ((repeatedTooMuch || shouldTryDifferentLane) && lanes.Length > 1)
+        {
+            int attempts = 0;
+
+            while (selectedLaneIndex == lastLaneIndex && attempts < 10)
+            {
+                selectedLaneIndex = Random.Range(0, lanes.Length);
+                attempts++;
+            }
+        }
+
+        if (selectedLaneIndex == lastLaneIndex)
+        {
+            sameLaneCount++;
+        }
+        else
+        {
+            sameLaneCount = 1;
+            lastLaneIndex = selectedLaneIndex;
+        }
+
+        return selectedLaneIndex;
     }
 }
