@@ -1,36 +1,58 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public enum TutorialCommand
+    {
+        Any,
+        Left,
+        Right,
+        Jump
+    }
+
     [Header("Movimento por faixas")]
-    public float[] lanes = { -2f, 0f, 2f };
+    public float[] lanePositions = { -2.2f, 0f, 2.2f };
     public int currentLane = 1;
-    public float laneChangeSpeed = 10f;
+    public float laneMoveSpeed = 10f;
 
     [Header("Pulo")]
     public float jumpForce = 7f;
+    public Transform groundCheck;
+    public LayerMask groundLayer;
+    public float groundCheckRadius = 0.15f;
 
-    [Header("Abaixar")]
-    public float slideDuration = 0.7f;
+    [Tooltip("Tempo em que o jogo considera que o player está pulando para passar por obstáculos como a catraca.")]
+    public float jumpActionDuration = 0.75f;
+
+    [Header("Modo tutorial")]
+    public bool tutorialMode = false;
+    public TutorialCommand allowedCommand = TutorialCommand.Any;
 
     private Rigidbody2D rb;
-    private BoxCollider2D boxCollider;
+    private bool isGrounded;
+    private bool isJumpingAction = false;
+    private Coroutine jumpCoroutine;
 
-    private bool isGrounded = false;
-    private bool isSliding = false;
+    public bool IsJumping
+    {
+        get { return isJumpingAction; }
+    }
 
-    private float originalColliderHeight;
-    private Vector2 originalColliderOffset;
+    public bool IsGrounded
+    {
+        get { return isGrounded; }
+    }
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
 
-        originalColliderHeight = boxCollider.size.y;
-        originalColliderOffset = boxCollider.offset;
+        currentLane = Mathf.Clamp(currentLane, 0, lanePositions.Length - 1);
 
-        transform.position = new Vector3(lanes[currentLane], transform.position.y, transform.position.z);
+        Vector3 startPosition = transform.position;
+        startPosition.x = lanePositions[currentLane];
+        transform.position = startPosition;
     }
 
     void Update()
@@ -40,97 +62,139 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        HandleLaneInput();
-        HandleJump();
-        HandleSlide();
-    }
-
-    void FixedUpdate()
-    {
+        CheckGround();
+        HandleInput();
         MoveToLane();
     }
 
-    void HandleLaneInput()
+    void CheckGround()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+        if (groundCheck != null)
         {
-            if (currentLane > 0)
+            isGrounded = Physics2D.OverlapCircle(
+                groundCheck.position,
+                groundCheckRadius,
+                groundLayer
+            );
+        }
+        else
+        {
+            isGrounded = true;
+        }
+
+        if (isGrounded && rb != null && rb.linearVelocity.y <= 0.05f && !isJumpingAction)
+        {
+            isJumpingAction = false;
+        }
+    }
+
+    void HandleInput()
+    {
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (CanUseCommand(TutorialCommand.Left))
             {
-                currentLane--;
+                MoveLeft();
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (currentLane < lanes.Length - 1)
+            if (CanUseCommand(TutorialCommand.Right))
             {
-                currentLane++;
+                MoveRight();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (CanUseCommand(TutorialCommand.Jump))
+            {
+                Jump();
+            }
+        }
+    }
+
+    bool CanUseCommand(TutorialCommand command)
+    {
+        if (!tutorialMode)
+        {
+            return true;
+        }
+
+        return allowedCommand == command || allowedCommand == TutorialCommand.Any;
+    }
+
+    void MoveLeft()
+    {
+        if (currentLane > 0)
+        {
+            currentLane--;
+        }
+    }
+
+    void MoveRight()
+    {
+        if (currentLane < lanePositions.Length - 1)
+        {
+            currentLane++;
         }
     }
 
     void MoveToLane()
     {
-        Vector2 targetPosition = new Vector2(lanes[currentLane], rb.position.y);
-        Vector2 newPosition = Vector2.Lerp(rb.position, targetPosition, laneChangeSpeed * Time.fixedDeltaTime);
+        Vector3 targetPosition = transform.position;
+        targetPosition.x = lanePositions[currentLane];
 
-        rb.MovePosition(newPosition);
+        transform.position = Vector3.Lerp(
+            transform.position,
+            targetPosition,
+            laneMoveSpeed * Time.deltaTime
+        );
     }
 
-    void HandleJump()
+    void Jump()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow)) && isGrounded)
+        if (rb == null)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            isGrounded = false;
+            return;
         }
-    }
 
-    void HandleSlide()
-    {
-        if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && !isSliding && isGrounded)
+        if (!isGrounded)
         {
-            StartCoroutine(Slide());
+            return;
         }
-    }
 
-    System.Collections.IEnumerator Slide()
-    {
-        isSliding = true;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+        rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
-        boxCollider.size = new Vector2(boxCollider.size.x, originalColliderHeight / 2f);
-        boxCollider.offset = new Vector2(originalColliderOffset.x, originalColliderOffset.y - originalColliderHeight / 4f);
-
-        yield return new WaitForSeconds(slideDuration);
-
-        boxCollider.size = new Vector2(boxCollider.size.x, originalColliderHeight);
-        boxCollider.offset = originalColliderOffset;
-
-        isSliding = false;
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        if (jumpCoroutine != null)
         {
-            isGrounded = true;
+            StopCoroutine(jumpCoroutine);
         }
+
+        jumpCoroutine = StartCoroutine(JumpActionRoutine());
     }
 
-    void OnCollisionStay2D(Collision2D collision)
+    IEnumerator JumpActionRoutine()
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            isGrounded = true;
-        }
+        isJumpingAction = true;
+
+        yield return new WaitForSeconds(jumpActionDuration);
+
+        isJumpingAction = false;
+        jumpCoroutine = null;
     }
 
-    void OnCollisionExit2D(Collision2D collision)
+    public void SetTutorialCommand(TutorialCommand command)
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            isGrounded = false;
-        }
+        tutorialMode = true;
+        allowedCommand = command;
+    }
+
+    public void DisableTutorialMode()
+    {
+        tutorialMode = false;
+        allowedCommand = TutorialCommand.Any;
     }
 }

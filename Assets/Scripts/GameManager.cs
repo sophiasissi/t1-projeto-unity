@@ -20,31 +20,48 @@ public class GameManager : MonoBehaviour
     public string nextSceneName = "Level2Scene";
     public int coffeesToFinishLevel = 5;
 
+    [Header("Pontuação")]
+    public int pointsPerCoffee = 100;
+
     private int score = 0;
     private int coffeeCount = 0;
+    private bool levelFinished = false;
 
     void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Start()
     {
         Time.timeScale = 1f;
         gameRunning = true;
-
-        UpdateUI();
+        levelFinished = false;
 
         if (phaseText != null)
         {
             phaseText.text = phaseName;
         }
+
+        UpdateUI();
     }
 
     public void AddCoffee()
     {
+        if (!gameRunning || levelFinished)
+        {
+            return;
+        }
+
         coffeeCount++;
-        score += 100;
+        score += pointsPerCoffee;
 
         UpdateUI();
 
@@ -56,8 +73,23 @@ public class GameManager : MonoBehaviour
 
     public void AddScore(int points)
     {
+        if (!gameRunning || levelFinished)
+        {
+            return;
+        }
+
         score += points;
         UpdateUI();
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
+
+    public int GetCoffeeCount()
+    {
+        return coffeeCount;
     }
 
     void UpdateUI()
@@ -81,15 +113,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ClearTutorialText()
+    {
+        if (tutorialText != null)
+        {
+            tutorialText.text = "";
+        }
+    }
+
     public void GameOver()
     {
+        if (!gameRunning)
+        {
+            return;
+        }
+
         gameRunning = false;
         Time.timeScale = 1f;
+
         SceneManager.LoadScene("GameOverScene");
     }
 
     public void FinishLevel()
     {
+        if (levelFinished)
+        {
+            return;
+        }
+
+        levelFinished = true;
         gameRunning = false;
         Time.timeScale = 1f;
 
@@ -97,5 +149,11 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene(nextSceneName);
         }
+    }
+
+    public void RestartCurrentScene()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
