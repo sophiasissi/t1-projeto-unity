@@ -206,8 +206,20 @@ public class TutorialMessages : MonoBehaviour
 
         obj.transform.position = startPosition;
         obj.SetActive(true);
-    }
 
+        // No tutorial, os obstáculos são visuais.
+        // Quem valida se o jogador apertou a tecla certa é o TutorialMessages,
+        // então o collider dos obstáculos não deve causar Game Over.
+        if (obj.CompareTag("Obstacle"))
+        {
+            Collider2D collider = obj.GetComponent<Collider2D>();
+
+            if (collider != null)
+            {
+                collider.enabled = false;
+            }
+        }
+    }
     void SetMessage(string message, string key, string arrow)
     {
         if (tutorialMessageText != null)
@@ -322,6 +334,18 @@ public class TutorialMessages : MonoBehaviour
         if (obj != null)
         {
             obj.SetActive(active);
+
+            // Quando esconder o objeto, reativa o collider para não quebrar
+            // caso esse mesmo objeto/prefab seja usado depois.
+            if (!active && obj.CompareTag("Obstacle"))
+            {
+                Collider2D collider = obj.GetComponent<Collider2D>();
+
+                if (collider != null)
+                {
+                    collider.enabled = true;
+                }
+            }
         }
     }
 }

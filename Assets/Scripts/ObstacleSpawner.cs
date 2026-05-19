@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
+    [Header("Prefabs")]
     public GameObject[] obstaclePrefabs;
 
     [Header("Posições")]
@@ -21,6 +22,8 @@ public class ObstacleSpawner : MonoBehaviour
     void Start()
     {
         timer = 0f;
+        canSpawn = false;
+
         Invoke(nameof(EnableSpawn), startDelay);
     }
 
@@ -48,12 +51,20 @@ public class ObstacleSpawner : MonoBehaviour
     void EnableSpawn()
     {
         canSpawn = true;
+        SpawnObstacle();
     }
 
     void SpawnObstacle()
     {
         if (obstaclePrefabs == null || obstaclePrefabs.Length == 0)
         {
+            Debug.LogWarning("ObstacleSpawner: nenhum prefab de obstáculo foi colocado no Inspector.");
+            return;
+        }
+
+        if (lanes == null || lanes.Length == 0)
+        {
+            Debug.LogWarning("ObstacleSpawner: nenhuma faixa foi configurada.");
             return;
         }
 

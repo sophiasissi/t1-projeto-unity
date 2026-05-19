@@ -17,22 +17,34 @@ public class PlayerController : MonoBehaviour
     public float laneMoveSpeed = 10f;
 
     [Header("Pulo")]
-    public float jumpForce = 7f;
+    public float jumpForce = 8f;
+    public int maxJumps = 2;
 
-    [Tooltip("Tempo em que o player fica protegido contra obstáculo de pulo, como a catraca.")]
+    [Tooltip("Tempo mínimo em que o player fica protegido contra obstáculo de pulo, como a catraca.")]
     public float jumpActionDuration = 1.4f;
+
+    [Tooltip("Margem para considerar que o player voltou ao chão.")]
+    public float groundTolerance = 0.25f;
 
     [Header("Modo tutorial")]
     public bool tutorialMode = false;
     public TutorialCommand allowedCommand = TutorialCommand.Any;
 
     private Rigidbody2D rb;
+
+    private int jumpCount = 0;
+    private bool isGrounded = true;
     private bool isJumpingAction = false;
+
+    private float startY;
     private Coroutine jumpCoroutine;
 
     public bool IsJumping
     {
-        get { return isJumpingAction; }
+        get
+        {
+            return isJumpingAction || !isGrounded || jumpCount > 0;
+        }
     }
 
     void Start()
@@ -44,6 +56,9 @@ public class PlayerController : MonoBehaviour
         Vector3 startPosition = transform.position;
         startPosition.x = lanePositions[currentLane];
         transform.position = startPosition;
+
+        startY = transform.position.y;
+        ResetJumps();
     }
 
     void Update()
@@ -52,6 +67,8 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
+        TryResetJumpsByPosition();
 
         HandleInput();
         MoveToLane();
@@ -129,13 +146,17 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (isJumpingAction)
+        if (jumpCount >= maxJumps)
         {
             return;
         }
 
+        isGrounded = false;
+
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+
+        jumpCount++;
 
         if (jumpCoroutine != null)
         {
@@ -153,6 +174,41 @@ public class PlayerController : MonoBehaviour
 
         isJumpingAction = false;
         jumpCoroutine = null;
+    }
+
+    void TryResetJumpsByPosition()
+    {
+        if (rb == null)
+        {
+            return;
+        }
+
+        if (transform.position.y <= startY + groundTolerance && rb.linearVelocity.y <= 0.1f)
+        {
+            ResetJumps();
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.name.Contains("Ground"))
+        {
+            ResetJumps();
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.name.Contains("Ground"))
+        {
+            ResetJumps();
+        }
+    }
+
+    void ResetJumps()
+    {
+        jumpCount = 0;
+        isGrounded = true;
     }
 
     public void SetTutorialCommand(TutorialCommand command)
