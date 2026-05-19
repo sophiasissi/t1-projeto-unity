@@ -559,13 +559,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1551775581}
     m_Modifications:
+    - target: {fileID: 2980259867460519527, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2141bec8f0872534ea4a9ec5d6853fef, type: 3}
+    - target: {fileID: 2980259867460519527, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9577252
+      objectReference: {fileID: 0}
+    - target: {fileID: 2980259867460519527, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
+      propertyPath: m_Color.g
+      value: 0.9577252
+      objectReference: {fileID: 0}
+    - target: {fileID: 2980259867460519527, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9622642
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538031854977935850, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538031854977935850, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.12
+      objectReference: {fileID: 0}
     - target: {fileID: 4538031854977935850, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.94902
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4538031854977935850, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.73485
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 4538031854977935850, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
       propertyPath: m_LocalPosition.z
@@ -603,6 +627,18 @@ PrefabInstance:
       propertyPath: speed
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 6836216825015283315, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
+      propertyPath: m_Size.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836216825015283315, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
+      propertyPath: m_Size.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6836216825015283315, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8794547573073500163, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
       propertyPath: m_Name
       value: Step3_Obstacle_Jump
@@ -618,10 +654,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8794547573073500163, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 328711194}
+      addedObject: {fileID: 328711198}
     - targetCorrespondingSourceObject: {fileID: 8794547573073500163, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 328711198}
+      addedObject: {fileID: 328711199}
   m_SourcePrefab: {fileID: 100100000, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
 --- !u!4 &328711192 stripped
 Transform:
@@ -633,19 +669,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8794547573073500163, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
   m_PrefabInstance: {fileID: 328711191}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &328711194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 328711193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96aabd9d214d18e4e9e51326874de7a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObstacleType
-  requiredAction: 1
 --- !u!114 &328711198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -659,7 +682,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialObjectMover
   speed: 0.8
-  stopY: -2.2
+  endY: -1.2
+  deactivateAtEnd: 1
+--- !u!114 &328711199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328711193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96aabd9d214d18e4e9e51326874de7a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleType
+  requiredAction: 1
 --- !u!1 &353583033
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,123 +834,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.00003995253, y: -4.5}
   m_SizeDelta: {x: 440, y: 51}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &365342561 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3810055254134846769, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-  m_PrefabInstance: {fileID: 498544483}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &498544483
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1551775581}
-    m_Modifications:
-    - target: {fileID: 3099745133259281813, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3099745133259281813, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3099745133259281813, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3099745133259281813, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3099745133259281813, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3099745133259281813, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3099745133259281813, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3099745133259281813, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3099745133259281813, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3099745133259281813, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3810055254134846769, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: m_Name
-      value: Step4_Obstacle_Duck
-      objectReference: {fileID: 0}
-    - target: {fileID: 3810055254134846769, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4482890603296223050, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: m_SortingOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4819580019572187991, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: speed
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4819580019572187991, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4819580019572187991, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3810055254134846769, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 498544488}
-    - targetCorrespondingSourceObject: {fileID: 3810055254134846769, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 498544489}
-  m_SourcePrefab: {fileID: 100100000, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
---- !u!4 &498544484 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3099745133259281813, guid: c8b152f63c8134a46b0042f80a1aa5ac, type: 3}
-  m_PrefabInstance: {fileID: 498544483}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &498544488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 365342561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96aabd9d214d18e4e9e51326874de7a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObstacleType
-  requiredAction: 2
---- !u!114 &498544489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 365342561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ffa1268de176747bd75f1dcba4fd6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TutorialObjectMover
-  speed: 0.8
-  stopY: -2.2
 --- !u!1 &523012989
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,6 +886,7 @@ MonoBehaviour:
   phaseName: Fase 1 - Tutorial
   nextSceneName: Level2Scene
   coffeesToFinishLevel: 5
+  pointsPerCoffee: 100
 --- !u!1 &612703093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2162,7 +2083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8320225121503806568, guid: 2f8aca6f223bbbf43863c95a120195c2, type: 3}
       propertyPath: m_Name
-      value: Step5_Coffee
+      value: Step4_Coffee
       objectReference: {fileID: 0}
     - target: {fileID: 8320225121503806568, guid: 2f8aca6f223bbbf43863c95a120195c2, type: 3}
       propertyPath: m_IsActive
@@ -2200,7 +2121,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialObjectMover
   speed: 0.8
-  stopY: -2.2
+  endY: -1.5
+  deactivateAtEnd: 0
 --- !u!1 &1520326313
 GameObject:
   m_ObjectHideFlags: 0
@@ -2445,7 +2367,6 @@ Transform:
   - {fileID: 2023146267}
   - {fileID: 58697972}
   - {fileID: 328711192}
-  - {fileID: 498544484}
   - {fileID: 1495263060}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2596,11 +2517,10 @@ MonoBehaviour:
   step1ObstacleLeft: {fileID: 1864300473}
   step2ObstacleRight: {fileID: 1633713250}
   step3ObstacleJump: {fileID: 328711193}
-  step4ObstacleDuck: {fileID: 365342561}
-  step5Coffee: {fileID: 1495263061}
+  step4Coffee: {fileID: 1495263061}
   obstacleSpawner: {fileID: 1984211949}
   collectibleSpawner: {fileID: 1817900459}
-  timeAfterCorrectInput: 1
+  timeAfterCorrectInput: 1.5
   timeBeforeNextScene: 2
   nextSceneName: Level2Scene
 --- !u!1 &1633713250 stripped
@@ -2634,7 +2554,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialObjectMover
   speed: 0.8
-  stopY: -2.2
+  endY: -1.2
+  deactivateAtEnd: 1
 --- !u!1 &1756134037
 GameObject:
   m_ObjectHideFlags: 0
@@ -2961,9 +2882,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollectibleSpawner
   collectiblePrefab: {fileID: 8320225121503806568, guid: 2f8aca6f223bbbf43863c95a120195c2, type: 3}
+  lanes:
+  - -2.2
+  - 0
+  - 2.2
+  spawnY: 6
+  startDelay: 2
   spawnInterval: 3
-  minY: -1.2
-  maxY: 1.6
+  objectSpeed: 4
 --- !u!1 &1836009758
 GameObject:
   m_ObjectHideFlags: 0
@@ -3364,6 +3290,7 @@ MonoBehaviour:
   spawnY: 6
   startDelay: 1.5
   spawnInterval: 2
+  objectSpeed: 4
 --- !u!1 &1988197867
 GameObject:
   m_ObjectHideFlags: 0
@@ -3729,7 +3656,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialObjectMover
   speed: 0.8
-  stopY: -2.2
+  endY: -1.2
+  deactivateAtEnd: 1
 --- !u!1 &2064972844
 GameObject:
   m_ObjectHideFlags: 0
@@ -3922,9 +3850,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   groundCheckRadius: 0.15
-  duckDuration: 1.2
-  normalScale: {x: 1, y: 1, z: 1}
-  duckScale: {x: 1, y: 0.65, z: 1}
+  jumpActionDuration: 1
   tutorialMode: 0
   allowedCommand: 0
 --- !u!114 &2064972850

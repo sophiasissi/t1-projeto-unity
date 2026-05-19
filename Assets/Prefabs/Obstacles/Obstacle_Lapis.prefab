@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1930216449126681377}
   - component: {fileID: 1371156153635155066}
   - component: {fileID: 1950587406449423977}
+  - component: {fileID: -24082425521167404}
   m_Layer: 0
   m_Name: Obstacle_Lapis
   m_TagString: Obstacle
@@ -153,3 +154,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.8, y: 7.8}
   m_EdgeRadius: 0
+--- !u!114 &-24082425521167404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7247944351934900258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96aabd9d214d18e4e9e51326874de7a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleType
+  requiredAction: 0

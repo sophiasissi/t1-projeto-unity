@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8457681241396061148}
   - component: {fileID: 7532374483260394280}
   - component: {fileID: 4394857884006391116}
+  - component: {fileID: -4402404444248043712}
   m_Layer: 0
   m_Name: Obstacle_Mochila
   m_TagString: Obstacle
@@ -153,3 +154,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObstacleMover
   speed: 4
   destroyY: -6
+--- !u!114 &-4402404444248043712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772782690510752426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96aabd9d214d18e4e9e51326874de7a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleType
+  requiredAction: 0

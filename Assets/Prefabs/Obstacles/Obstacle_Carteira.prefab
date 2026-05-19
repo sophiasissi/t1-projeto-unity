@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 9063359595728850373}
   - component: {fileID: 6828537896580482230}
   - component: {fileID: 7913738670639657726}
+  - component: {fileID: 886119914397002758}
   m_Layer: 0
   m_Name: Obstacle_Carteira
   m_TagString: Obstacle
@@ -153,3 +154,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 6.3, y: 8.7}
   m_EdgeRadius: 0
+--- !u!114 &886119914397002758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2967703005386248644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96aabd9d214d18e4e9e51326874de7a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObstacleType
+  requiredAction: 0

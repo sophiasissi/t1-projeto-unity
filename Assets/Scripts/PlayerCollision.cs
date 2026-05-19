@@ -38,27 +38,13 @@ public class PlayerCollision : MonoBehaviour
     {
         ObstacleType obstacleType = obstacle.GetComponent<ObstacleType>();
 
-        if (obstacleType == null)
-        {
-            GameOver();
-            return;
-        }
-
-        if (obstacleType.requiredAction == ObstacleType.RequiredAction.None)
-        {
-            GameOver();
-            return;
-        }
-
-        if (obstacleType.requiredAction == ObstacleType.RequiredAction.Jump)
+        if (obstacleType != null && obstacleType.requiredAction == ObstacleType.RequiredAction.Jump)
         {
             if (playerController != null && playerController.IsJumping)
             {
+                // Passou por cima da catraca.
                 return;
             }
-
-            GameOver();
-            return;
         }
 
         GameOver();

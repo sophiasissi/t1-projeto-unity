@@ -2,17 +2,37 @@ using UnityEngine;
 
 public class CollectibleSpawner : MonoBehaviour
 {
+    [Header("Prefab")]
     public GameObject collectiblePrefab;
 
+    [Header("Posições")]
+    public float[] lanes = { -2.2f, 0f, 2.2f };
+    public float spawnY = 6f;
+
+    [Header("Tempo")]
+    public float startDelay = 2f;
     public float spawnInterval = 3f;
-    public float minY = -1.2f;
-    public float maxY = 1.6f;
+
+    [Header("Velocidade da fase")]
+    public float objectSpeed = 5f;
 
     private float timer = 0f;
+    private bool canSpawn = false;
+
+    void Start()
+    {
+        timer = 0f;
+        Invoke(nameof(EnableSpawn), startDelay);
+    }
 
     void Update()
     {
         if (GameManager.instance != null && !GameManager.instance.gameRunning)
+        {
+            return;
+        }
+
+        if (!canSpawn)
         {
             return;
         }
@@ -26,15 +46,43 @@ public class CollectibleSpawner : MonoBehaviour
         }
     }
 
+    void EnableSpawn()
+    {
+        canSpawn = true;
+        SpawnCollectible();
+    }
+
     void SpawnCollectible()
     {
-        float randomY = Random.Range(minY, maxY);
-        Vector3 spawnPosition = new Vector3(transform.position.x, randomY, 0);
+        if (collectiblePrefab == null)
+        {
+            return;
+        }
 
-        Instantiate(
+        if (lanes == null || lanes.Length == 0)
+        {
+            return;
+        }
+
+        int randomLaneIndex = Random.Range(0, lanes.Length);
+
+        Vector3 spawnPosition = new Vector3(
+            lanes[randomLaneIndex],
+            spawnY,
+            0f
+        );
+
+        GameObject newCollectible = Instantiate(
             collectiblePrefab,
             spawnPosition,
             Quaternion.identity
         );
+
+        ObstacleMover mover = newCollectible.GetComponent<ObstacleMover>();
+
+        if (mover != null)
+        {
+            mover.speed = objectSpeed;
+        }
     }
 }

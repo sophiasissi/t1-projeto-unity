@@ -18,30 +18,21 @@ public class PlayerController : MonoBehaviour
 
     [Header("Pulo")]
     public float jumpForce = 7f;
-    public Transform groundCheck;
-    public LayerMask groundLayer;
-    public float groundCheckRadius = 0.15f;
 
-    [Tooltip("Tempo em que o jogo considera que o player está pulando para passar por obstáculos como a catraca.")]
-    public float jumpActionDuration = 0.75f;
+    [Tooltip("Tempo em que o player fica protegido contra obstáculo de pulo, como a catraca.")]
+    public float jumpActionDuration = 1.4f;
 
     [Header("Modo tutorial")]
     public bool tutorialMode = false;
     public TutorialCommand allowedCommand = TutorialCommand.Any;
 
     private Rigidbody2D rb;
-    private bool isGrounded;
     private bool isJumpingAction = false;
     private Coroutine jumpCoroutine;
 
     public bool IsJumping
     {
         get { return isJumpingAction; }
-    }
-
-    public bool IsGrounded
-    {
-        get { return isGrounded; }
     }
 
     void Start()
@@ -62,30 +53,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        CheckGround();
         HandleInput();
         MoveToLane();
-    }
-
-    void CheckGround()
-    {
-        if (groundCheck != null)
-        {
-            isGrounded = Physics2D.OverlapCircle(
-                groundCheck.position,
-                groundCheckRadius,
-                groundLayer
-            );
-        }
-        else
-        {
-            isGrounded = true;
-        }
-
-        if (isGrounded && rb != null && rb.linearVelocity.y <= 0.05f && !isJumpingAction)
-        {
-            isJumpingAction = false;
-        }
     }
 
     void HandleInput()
@@ -160,7 +129,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (!isGrounded)
+        if (isJumpingAction)
         {
             return;
         }
