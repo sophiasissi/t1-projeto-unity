@@ -3,19 +3,10 @@ public static class GameSession
     public static int totalScore = 0;
     public static int totalCoffee = 0;
 
-    public static int lastRunScore = 0;
-    public static int lastRunCoffee = 0;
-    public static string lastPlayedScene = "";
+    public static int gameOverScore = 0;
+    public static int gameOverCoffee = 0;
 
-    public static void Reset()
-    {
-        totalScore = 0;
-        totalCoffee = 0;
-
-        lastRunScore = 0;
-        lastRunCoffee = 0;
-        lastPlayedScene = "";
-    }
+    public static string lastSceneName = "";
 
     public static void AddLevelResult(int score, int coffee)
     {
@@ -25,8 +16,17 @@ public static class GameSession
 
     public static void SaveGameOverState(int score, int coffee, string sceneName)
     {
-        lastRunScore = totalScore + score;
-        lastRunCoffee = totalCoffee + coffee;
-        lastPlayedScene = sceneName;
+        gameOverScore = score;
+        gameOverCoffee = coffee;
+        lastSceneName = sceneName;
+    }
+
+    public static void Reset()
+    {
+        totalScore = 0;
+        totalCoffee = 0;
+        gameOverScore = 0;
+        gameOverCoffee = 0;
+        lastSceneName = "";
     }
 }

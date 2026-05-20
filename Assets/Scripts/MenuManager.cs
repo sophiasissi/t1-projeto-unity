@@ -9,6 +9,20 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene("TutorialScene");
     }
 
+    public void TryAgain()
+    {
+        Time.timeScale = 1f;
+        GameSession.Reset();
+        SceneManager.LoadScene("Level2Scene");
+    }
+
+    public void BackToMenu()
+    {
+        Time.timeScale = 1f;
+        GameSession.Reset();
+        SceneManager.LoadScene("MenuScene");
+    }
+
     public void QuitGame()
     {
         Application.Quit();

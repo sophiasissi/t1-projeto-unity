@@ -10,32 +10,33 @@ public class GameOverSceneManager : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
+
         if (finalScoreText != null)
         {
-            finalScoreText.text = GameSession.lastRunScore.ToString("0000");
+            finalScoreText.text = GameSession.gameOverScore.ToString("0000");
         }
 
         if (finalCoffeeText != null)
         {
-            finalCoffeeText.text = GameSession.lastRunCoffee.ToString();
+            finalCoffeeText.text = "";
         }
     }
 
-    public void RetryLevel()
+    public void TryAgain()
     {
-        if (!string.IsNullOrEmpty(GameSession.lastPlayedScene))
-        {
-            SceneManager.LoadScene(GameSession.lastPlayedScene);
-        }
-        else
-        {
-            SceneManager.LoadScene("TutorialScene");
-        }
+        Time.timeScale = 1f;
+        GameSession.Reset();
+
+        // Volta para a primeira fase jogável
+        SceneManager.LoadScene("Level2Scene");
     }
 
     public void BackToMenu()
     {
+        Time.timeScale = 1f;
         GameSession.Reset();
+
         SceneManager.LoadScene("MenuScene");
     }
 }

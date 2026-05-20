@@ -657,7 +657,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1615399222}
         m_TargetAssemblyTypeName: GameOverSceneManager, Assembly-CSharp
-        m_MethodName: RetryLevel
+        m_MethodName: TryAgain
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
