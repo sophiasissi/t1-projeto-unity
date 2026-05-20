@@ -97,12 +97,12 @@ public class GameManager : MonoBehaviour
     {
         if (scoreText != null)
         {
-            scoreText.text = "Pontos: " + score.ToString("0000");
+            scoreText.text = score.ToString("0000");
         }
 
         if (coffeeText != null)
         {
-            coffeeText.text = "Cafés: " + coffeeCount + "/" + coffeesToFinishLevel;
+            coffeeText.text = coffeeCount + "/" + coffeesToFinishLevel;
         }
     }
 

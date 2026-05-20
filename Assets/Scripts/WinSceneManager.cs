@@ -12,12 +12,12 @@ public class WinSceneManager : MonoBehaviour
     {
         if (finalScoreText != null)
         {
-            finalScoreText.text = "Pontos: " + GameSession.totalScore.ToString("0000");
+            finalScoreText.text = GameSession.totalScore.ToString("0000");
         }
 
         if (finalCoffeeText != null)
         {
-            finalCoffeeText.text = "Cafés: " + GameSession.totalCoffee;
+            finalCoffeeText.text = GameSession.totalCoffee.ToString();
         }
     }
 
