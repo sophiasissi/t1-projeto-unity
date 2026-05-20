@@ -542,9 +542,11 @@ MonoBehaviour:
   coffeeText: {fileID: 799271951}
   tutorialText: {fileID: 0}
   phaseText: {fileID: 353583034}
+  levelCompleteText: {fileID: 0}
   phaseName: Fase 2 - Campus
   nextSceneName: Level3Scene
   coffeesToFinishLevel: 5
+  delayBeforeNextScene: 1
   pointsPerCoffee: 100
 --- !u!1 &612703093
 GameObject:
@@ -795,8 +797,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 66.97977, y: -5.8712616}
-  m_SizeDelta: {x: 320, y: 120}
+  m_AnchoredPosition: {x: 61.92522, y: 0.00001525879}
+  m_SizeDelta: {x: 233.242, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &799271951
 MonoBehaviour:

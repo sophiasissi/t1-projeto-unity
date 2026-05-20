@@ -16,8 +16,15 @@ public static class GameSession
 
     public static void SaveGameOverState(int score, int coffee, string sceneName)
     {
-        gameOverScore = score;
-        gameOverCoffee = coffee;
+        gameOverScore = totalScore + score;
+        gameOverCoffee = totalCoffee + coffee;
+        lastSceneName = sceneName;
+    }
+
+    public static void SaveWinState(int score, int coffee, string sceneName)
+    {
+        gameOverScore = totalScore + score;
+        gameOverCoffee = totalCoffee + coffee;
         lastSceneName = sceneName;
     }
 
@@ -25,8 +32,10 @@ public static class GameSession
     {
         totalScore = 0;
         totalCoffee = 0;
+
         gameOverScore = 0;
         gameOverCoffee = 0;
+
         lastSceneName = "";
     }
 }

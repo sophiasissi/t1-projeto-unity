@@ -152,7 +152,16 @@ public class GameManager : MonoBehaviour
         levelFinished = true;
         gameRunning = false;
 
-        GameSession.AddLevelResult(score, coffeeCount);
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        if (nextSceneName == "WinScene")
+        {
+            GameSession.SaveWinState(score, coffeeCount, currentSceneName);
+        }
+        else
+        {
+            GameSession.AddLevelResult(score, coffeeCount);
+        }
 
         StartCoroutine(LoadNextSceneAfterDelay());
     }
