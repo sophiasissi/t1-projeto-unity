@@ -1,20 +1,39 @@
 # Corre, Calouro! 🎮☕
 
+## Integrantes
+
+- **Sophia Sissi Curcio Guedes** — 23.01044-4
+- **Gustavo Coutinho Arruda** — 23.00938-0
+
+---
+
 ## Sobre o projeto
 
-**Corre, Calouro!** é um jogo 2D desenvolvido em Unity para a disciplina de **Computação Gráfica e Desenvolvimento de Jogos / CIC402 – Projeto T1**.
+**Corre, Calouro!** é um jogo 2D desenvolvido em **Unity** para a disciplina de **Computação Gráfica e Desenvolvimento de Jogos / CIC402 — Projeto T1**.
 
-O jogo tem como tema a rotina de um estudante atrasado para a aula. O jogador controla um aluno que corre pelo campus da faculdade e precisa desviar de obstáculos, pular, coletar cafés e chegar a tempo na sala.
+O projeto foi criado com o objetivo de desenvolver um jogo funcional, jogável e com uma primeira fase em formato de tutorial, conforme a proposta da disciplina.
 
-A proposta foi inspirada em jogos de corrida infinita, como **Subway Surfers**, mas adaptada para um ambiente universitário e desenvolvida em 2D.
+A ideia do jogo é trazer uma experiência simples de entender, mas com mecânicas suficientes para gerar desafio, progressão e interação com o jogador.
 
 ---
 
 ## Objetivo do jogo
 
-O objetivo do jogador é ajudar o calouro a chegar a tempo na aula, desviando dos obstáculos espalhados pelo campus e coletando cafés para aumentar sua pontuação.
+O jogador controla um aluno atrasado que precisa atravessar o campus da faculdade e chegar a tempo na aula.
 
-Durante o caminho, o jogador encontra objetos comuns do ambiente universitário, como mochilas, catracas, carteiras, livros e outros elementos que dificultam sua chegada.
+Durante o percurso, é necessário:
+
+- Desviar de obstáculos;
+- Pular objetos no caminho;
+- Coletar cafés;
+- Acumular pontos;
+- Avançar pelas fases até chegar ao destino final.
+
+---
+
+## Inspiração
+
+O jogo foi inspirado em jogos de corrida infinita, principalmente no estilo de **Subway Surfers**, mas adaptado para uma proposta 2D com tema universitário.
 
 ---
 
@@ -23,12 +42,13 @@ Durante o caminho, o jogador encontra objetos comuns do ambiente universitário,
 O jogo possui as seguintes mecânicas:
 
 - Corrida automática do personagem;
-- Movimentação entre faixas;
+- Movimentação lateral entre faixas;
 - Pulo para desviar de obstáculos;
 - Coleta de cafés;
 - Sistema de pontuação;
 - Contador de cafés coletados;
 - Fases com dificuldade progressiva;
+- Tela inicial;
 - Tela de Game Over;
 - Tela de vitória;
 - Primeira fase em formato de tutorial.
@@ -39,9 +59,9 @@ O jogo possui as seguintes mecânicas:
 
 | Tecla | Ação |
 |------|------|
-| A ou seta esquerda | Move o personagem para a esquerda |
-| D ou seta direita | Move o personagem para a direita |
-| Espaço ou seta para cima | Faz o personagem pular |
+| `A` ou seta esquerda | Move o personagem para a esquerda |
+| `D` ou seta direita | Move o personagem para a direita |
+| `Espaço` ou seta para cima | Faz o personagem pular |
 
 ---
 
@@ -49,29 +69,49 @@ O jogo possui as seguintes mecânicas:
 
 ### Fase 1 — Tutorial
 
-A primeira fase funciona como uma fase demonstrativa. Nela, o jogador aprende os comandos principais do jogo enquanto joga.
+A primeira fase funciona como uma fase demonstrativa, ensinando os comandos básicos do jogo enquanto o jogador joga.
 
-O tutorial ensina:
+Durante essa fase, o jogador aprende a:
 
-- Como mover para a esquerda;
-- Como mover para a direita;
-- Como pular;
-- Como coletar cafés;
-- Como evitar obstáculos.
+- Mover para a esquerda;
+- Mover para a direita;
+- Pular;
+- Coletar cafés;
+- Evitar obstáculos.
 
-Essa fase foi criada para atender ao requisito da disciplina de que a primeira fase funcione como um tutorial para o restante do jogo.
+Essa fase foi criada para atender ao requisito da disciplina de que a primeira fase funcione como tutorial para o restante do jogo.
+
+---
 
 ### Fase 2 — Campus
 
 A segunda fase representa a corrida pelo campus da faculdade.
 
-Nessa fase, o jogador já precisa desviar dos obstáculos e coletar cafés sem instruções guiadas. A dificuldade é intermediária, com obstáculos mais frequentes e maior necessidade de reação.
+Nessa fase, o jogador já precisa jogar sem instruções guiadas, desviando dos obstáculos e coletando cafés para aumentar sua pontuação.
+
+Características da fase:
+
+- Velocidade intermediária;
+- Obstáculos mais frequentes;
+- Cafés posicionados pelo caminho;
+- Maior necessidade de reação do jogador.
+
+---
 
 ### Fase 3 — Chegada na aula
 
 A terceira fase representa a parte final do percurso, próxima à sala de aula.
 
-Ela possui maior dificuldade, com mais obstáculos, velocidade mais alta e menor tempo de reação. Ao concluir essa fase, o jogador vence o jogo.
+Essa fase possui maior dificuldade, exigindo mais atenção e reflexo do jogador.
+
+Características da fase:
+
+- Velocidade maior;
+- Mais obstáculos;
+- Menor tempo de reação;
+- Maior desafio para coletar cafés.
+
+Ao concluir essa fase, o jogador vence o jogo.
 
 ---
 
@@ -79,19 +119,19 @@ Ela possui maior dificuldade, com mais obstáculos, velocidade mais alta e menor
 
 O jogador ganha pontos ao coletar cafés durante as fases.
 
-A HUD do jogo exibe:
+A interface do jogo exibe:
 
 - Pontuação atual;
 - Quantidade de cafés coletados;
 - Nome da fase atual.
 
-Na tela de Game Over, é exibida a pontuação final do jogador.
+Na tela de **Game Over**, é exibida a pontuação final do jogador.
 
 ---
 
 ## Obstáculos
 
-Os obstáculos foram pensados para combinar com o tema universitário do jogo.
+Os obstáculos foram escolhidos para combinar com o tema universitário do jogo.
 
 Exemplos de obstáculos utilizados ou planejados:
 
@@ -100,7 +140,7 @@ Exemplos de obstáculos utilizados ou planejados:
 - Carteiras;
 - Livros;
 - Notebooks.
-
+  
 ---
 
 ## Coletáveis
@@ -113,7 +153,7 @@ No contexto do jogo, o café representa a energia do aluno para continuar corren
 
 ## Telas do jogo
 
-O projeto possui as seguintes telas/cenas:
+O jogo possui as seguintes telas/cenas:
 
 - Tela inicial;
 - Fase 1 — Tutorial;
