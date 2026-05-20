@@ -577,11 +577,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4538031854977935850, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.12
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 4538031854977935850, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.12
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 4538031854977935850, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2092,6 +2092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4878049664810823072, guid: 2f8aca6f223bbbf43863c95a120195c2, type: 3}
+    - {fileID: 4194626790873887986, guid: 2f8aca6f223bbbf43863c95a120195c2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -2122,8 +2123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialObjectMover
   speed: 0.8
-  endY: -1.5
-  deactivateAtEnd: 0
+  endY: -3
+  deactivateAtEnd: 1
 --- !u!1 &1520326313
 GameObject:
   m_ObjectHideFlags: 0
