@@ -2016,8 +2016,8 @@ MonoBehaviour:
   - 2.2
   spawnY: 6
   startDelay: 1
-  spawnInterval: 1.2
-  objectSpeed: 6
+  spawnInterval: 1.3
+  objectSpeed: 5.5
   maxSameLaneInSequence: 1
   chanceToForceDifferentLane: 0.7
 --- !u!1 &1988197867
