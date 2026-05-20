@@ -124,13 +124,20 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        if (!gameRunning)
+        if (!gameRunning || levelFinished)
         {
             return;
         }
 
         gameRunning = false;
+        levelFinished = true;
         Time.timeScale = 1f;
+
+        GameSession.SaveGameOverState(
+            score,
+            coffeeCount,
+            SceneManager.GetActiveScene().name
+        );
 
         SceneManager.LoadScene("GameOverScene");
     }
