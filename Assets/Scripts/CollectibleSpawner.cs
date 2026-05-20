@@ -10,16 +10,21 @@ public class CollectibleSpawner : MonoBehaviour
     public float spawnY = 6f;
 
     [Header("Tempo")]
-    public float startDelay = 1.5f;
-    public float spawnInterval = 2f;
+    public float startDelay = 3f;
+    public float minSpawnInterval = 4f;
+    public float maxSpawnInterval = 6f;
+    public float retryDelay = 0.7f;
 
     [Header("Velocidade da fase")]
     public float objectSpeed = 5f;
 
     [Header("Controle")]
-    public int maxActiveCollectibles = 2;
+    public int maxActiveCollectibles = 1;
+    public float minDistanceFromObstacle = 2.5f;
+    public float laneTolerance = 0.4f;
 
     private float timer = 0f;
+    private float nextSpawnTime = 0f;
     private bool canSpawn = false;
     private int lastLaneIndex = -1;
 
@@ -27,6 +32,7 @@ public class CollectibleSpawner : MonoBehaviour
     {
         timer = 0f;
         canSpawn = false;
+        nextSpawnTime = Random.Range(minSpawnInterval, maxSpawnInterval);
 
         Invoke(nameof(EnableSpawn), startDelay);
     }
@@ -48,47 +54,54 @@ public class CollectibleSpawner : MonoBehaviour
             return;
         }
 
+        if (CountActiveCollectibles() >= maxActiveCollectibles)
+        {
+            return;
+        }
+
         timer += Time.deltaTime;
 
-        if (timer >= spawnInterval)
+        if (timer >= nextSpawnTime)
         {
-            SpawnCollectible();
-            timer = 0f;
+            bool spawned = TrySpawnCollectible();
+
+            if (spawned)
+            {
+                timer = 0f;
+                nextSpawnTime = Random.Range(minSpawnInterval, maxSpawnInterval);
+            }
+            else
+            {
+                timer = nextSpawnTime - retryDelay;
+            }
         }
     }
 
     void EnableSpawn()
     {
         canSpawn = true;
-        SpawnCollectible();
     }
 
-    void SpawnCollectible()
+    bool TrySpawnCollectible()
     {
         if (collectiblePrefab == null)
         {
             Debug.LogWarning("CollectibleSpawner: o prefab do café não foi colocado no Inspector.");
-            return;
+            return false;
         }
 
         if (lanes == null || lanes.Length == 0)
         {
             Debug.LogWarning("CollectibleSpawner: nenhuma faixa foi configurada.");
-            return;
+            return false;
         }
 
-        if (PlayerAlreadyCollectedEnoughCoffee())
+        int laneIndex = ChooseSafeLaneIndex();
+
+        if (laneIndex == -1)
         {
-            return;
+            return false;
         }
-
-        if (CountActiveCollectibles() >= maxActiveCollectibles)
-        {
-            Debug.Log("CollectibleSpawner: já existem cafés ativos suficientes na tela.");
-            return;
-        }
-
-        int laneIndex = ChooseLaneIndex();
 
         Vector3 spawnPosition = new Vector3(
             lanes[laneIndex],
@@ -108,31 +121,88 @@ public class CollectibleSpawner : MonoBehaviour
         {
             mover.speed = objectSpeed;
         }
-        else
-        {
-            Debug.LogWarning("CollectibleSpawner: o prefab do café não tem ObstacleMover.");
-        }
 
-        Debug.Log("Café criado na faixa " + laneIndex + " na posição " + spawnPosition);
+        lastLaneIndex = laneIndex;
+
+        return true;
     }
 
-    int ChooseLaneIndex()
+    int ChooseSafeLaneIndex()
     {
-        int selectedLaneIndex = Random.Range(0, lanes.Length);
+        int[] laneIndexes = CreateShuffledLaneIndexes();
 
-        if (lanes.Length > 1)
+        for (int i = 0; i < laneIndexes.Length; i++)
         {
-            int attempts = 0;
+            int laneIndex = laneIndexes[i];
 
-            while (selectedLaneIndex == lastLaneIndex && attempts < 10)
+            if (laneIndex == lastLaneIndex && lanes.Length > 1)
             {
-                selectedLaneIndex = Random.Range(0, lanes.Length);
-                attempts++;
+                continue;
+            }
+
+            if (LaneIsSafe(lanes[laneIndex]))
+            {
+                return laneIndex;
             }
         }
 
-        lastLaneIndex = selectedLaneIndex;
-        return selectedLaneIndex;
+        for (int i = 0; i < laneIndexes.Length; i++)
+        {
+            int laneIndex = laneIndexes[i];
+
+            if (LaneIsSafe(lanes[laneIndex]))
+            {
+                return laneIndex;
+            }
+        }
+
+        return -1;
+    }
+
+    int[] CreateShuffledLaneIndexes()
+    {
+        int[] indexes = new int[lanes.Length];
+
+        for (int i = 0; i < lanes.Length; i++)
+        {
+            indexes[i] = i;
+        }
+
+        for (int i = 0; i < indexes.Length; i++)
+        {
+            int randomIndex = Random.Range(i, indexes.Length);
+            int temp = indexes[i];
+            indexes[i] = indexes[randomIndex];
+            indexes[randomIndex] = temp;
+        }
+
+        return indexes;
+    }
+
+    bool LaneIsSafe(float laneX)
+    {
+        GameObject[] obstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+
+        foreach (GameObject obstacle in obstacles)
+        {
+            if (obstacle == null)
+            {
+                continue;
+            }
+
+            float obstacleX = obstacle.transform.position.x;
+            float obstacleY = obstacle.transform.position.y;
+
+            bool sameLane = Mathf.Abs(obstacleX - laneX) <= laneTolerance;
+            bool tooClose = Mathf.Abs(obstacleY - spawnY) <= minDistanceFromObstacle;
+
+            if (sameLane && tooClose)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     bool PlayerAlreadyCollectedEnoughCoffee()

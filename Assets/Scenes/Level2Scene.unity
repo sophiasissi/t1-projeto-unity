@@ -1842,9 +1842,14 @@ MonoBehaviour:
   - 0
   - 2.2
   spawnY: 6
-  startDelay: 2
-  spawnInterval: 3
+  startDelay: 3
+  minSpawnInterval: 4
+  maxSpawnInterval: 6
+  retryDelay: 0.7
   objectSpeed: 5
+  maxActiveCollectibles: 1
+  minDistanceFromObstacle: 2.5
+  laneTolerance: 0.4
 --- !u!1 &1836009758
 GameObject:
   m_ObjectHideFlags: 0
@@ -2011,8 +2016,10 @@ MonoBehaviour:
   - 2.2
   spawnY: 6
   startDelay: 1
-  spawnInterval: 1.4
-  objectSpeed: 5
+  spawnInterval: 1.2
+  objectSpeed: 6
+  maxSameLaneInSequence: 1
+  chanceToForceDifferentLane: 0.7
 --- !u!1 &1988197867
 GameObject:
   m_ObjectHideFlags: 0

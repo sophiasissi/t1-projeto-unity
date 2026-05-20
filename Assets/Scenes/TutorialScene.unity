@@ -649,6 +649,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5734362519287467711, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
+    - {fileID: 3210164089187083278, guid: 2d4c9407205a2df4e85e5296a8a5d328, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -2888,8 +2889,13 @@ MonoBehaviour:
   - 2.2
   spawnY: 6
   startDelay: 2
-  spawnInterval: 3
+  minSpawnInterval: 4
+  maxSpawnInterval: 6
+  retryDelay: 0.7
   objectSpeed: 4
+  maxActiveCollectibles: 1
+  minDistanceFromObstacle: 2.5
+  laneTolerance: 0.4
 --- !u!1 &1836009758
 GameObject:
   m_ObjectHideFlags: 0
@@ -3291,6 +3297,8 @@ MonoBehaviour:
   startDelay: 1.5
   spawnInterval: 2
   objectSpeed: 4
+  maxSameLaneInSequence: 2
+  chanceToForceDifferentLane: 0.7
 --- !u!1 &1988197867
 GameObject:
   m_ObjectHideFlags: 0
