@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -14,11 +15,13 @@ public class GameManager : MonoBehaviour
     public TMP_Text coffeeText;
     public TMP_Text tutorialText;
     public TMP_Text phaseText;
+    public TMP_Text levelCompleteText;
 
     [Header("Configuração da fase")]
     public string phaseName = "Fase 1 - Tutorial";
     public string nextSceneName = "Level2Scene";
     public int coffeesToFinishLevel = 5;
+    public float delayBeforeNextScene = 1f;
 
     [Header("Pontuação")]
     public int pointsPerCoffee = 100;
@@ -29,14 +32,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        instance = this;
     }
 
     void Start()
@@ -48,6 +44,11 @@ public class GameManager : MonoBehaviour
         if (phaseText != null)
         {
             phaseText.text = phaseName;
+        }
+
+        if (levelCompleteText != null)
+        {
+            levelCompleteText.gameObject.SetActive(false);
         }
 
         UpdateUI();
@@ -143,7 +144,21 @@ public class GameManager : MonoBehaviour
 
         levelFinished = true;
         gameRunning = false;
-        Time.timeScale = 1f;
+
+        GameSession.AddLevelResult(score, coffeeCount);
+
+        StartCoroutine(LoadNextSceneAfterDelay());
+    }
+
+    IEnumerator LoadNextSceneAfterDelay()
+    {
+        if (levelCompleteText != null)
+        {
+            levelCompleteText.gameObject.SetActive(true);
+            levelCompleteText.text = "Fase concluída!";
+        }
+
+        yield return new WaitForSeconds(delayBeforeNextScene);
 
         if (!string.IsNullOrEmpty(nextSceneName))
         {

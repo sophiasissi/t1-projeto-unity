@@ -5,6 +5,7 @@ public class MenuManager : MonoBehaviour
 {
     public void StartGame()
     {
+        GameSession.Reset();
         SceneManager.LoadScene("TutorialScene");
     }
 

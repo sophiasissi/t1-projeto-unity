@@ -1843,8 +1843,8 @@ MonoBehaviour:
   - 2.2
   spawnY: 6
   startDelay: 3
-  minSpawnInterval: 3.5
-  maxSpawnInterval: 5
+  minSpawnInterval: 4
+  maxSpawnInterval: 5.5
   retryDelay: 0.7
   objectSpeed: 7
   maxActiveCollectibles: 1
@@ -2018,8 +2018,8 @@ MonoBehaviour:
   startDelay: 1
   spawnInterval: 1
   objectSpeed: 7
-  maxSameLaneInSequence: 1
-  chanceToForceDifferentLane: 0.8
+  maxSameLaneInSequence: 2
+  chanceToForceDifferentLane: 0.85
 --- !u!1 &1988197867
 GameObject:
   m_ObjectHideFlags: 0
