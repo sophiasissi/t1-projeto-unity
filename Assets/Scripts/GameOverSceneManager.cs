@@ -15,12 +15,16 @@ public class GameOverSceneManager : MonoBehaviour
         if (finalScoreText != null)
         {
             finalScoreText.text = GameSession.gameOverScore.ToString("0000");
+            finalScoreText.transform.SetAsLastSibling();
         }
 
         if (finalCoffeeText != null)
         {
-            finalCoffeeText.text = "";
+            finalCoffeeText.text = GameSession.gameOverCoffee.ToString();
+            finalCoffeeText.transform.SetAsLastSibling();
         }
+
+        Debug.Log("Resultado final - Pontos: " + GameSession.gameOverScore + " | Cafés: " + GameSession.gameOverCoffee);
     }
 
     public void TryAgain()
@@ -36,7 +40,6 @@ public class GameOverSceneManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         GameSession.Reset();
-
         SceneManager.LoadScene("MenuScene");
     }
 }
