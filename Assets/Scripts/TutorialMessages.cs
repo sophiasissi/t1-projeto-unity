@@ -86,6 +86,8 @@ public class TutorialMessages : MonoBehaviour
 
     void StartTutorial()
     {
+        CancelInvoke();
+
         currentStep = 0;
         waiting = false;
         tutorialFinished = false;
@@ -136,7 +138,7 @@ public class TutorialMessages : MonoBehaviour
         if (step == 0)
         {
             SetMessage(
-                "PRESSIONE A OU ←\nPARA IR PARA A ESQUERDA",
+                "DESVIE DOS OBSTÁCULOS!\nPRESSIONE A OU ← PARA IR PARA A ESQUERDA",
                 "A",
                 "←"
             );
@@ -147,7 +149,7 @@ public class TutorialMessages : MonoBehaviour
         else if (step == 1)
         {
             SetMessage(
-                "PRESSIONE D OU →\nPARA IR PARA A DIREITA",
+                "CONTINUE DESVIANDO!\nPRESSIONE D OU → PARA IR PARA A DIREITA",
                 "D",
                 "→"
             );
@@ -158,7 +160,7 @@ public class TutorialMessages : MonoBehaviour
         else if (step == 2)
         {
             SetMessage(
-                "PRESSIONE W, ESPAÇO OU ↑\nPARA PULAR",
+                "PULE A CATRACA!\nPRESSIONE W, ESPAÇO OU ↑",
                 "W",
                 "↑"
             );
@@ -171,7 +173,7 @@ public class TutorialMessages : MonoBehaviour
             ShowKeyButtons(false);
 
             SetMessage(
-                "COLETE CAFÉS\nPARA GANHAR PONTOS!",
+                "\nCOLETE CAFÉS\nPARA GANHAR PONTOS!",
                 "",
                 ""
             );
@@ -184,7 +186,7 @@ public class TutorialMessages : MonoBehaviour
             ShowKeyButtons(false);
 
             SetMessage(
-                "TUTORIAL CONCLUÍDO!\nPREPARE-SE PARA A FASE 2...",
+                "\nTUTORIAL CONCLUÍDO!\n\nPREPARE-SE PARA A FASE 2...",
                 "",
                 ""
             );
@@ -192,6 +194,7 @@ public class TutorialMessages : MonoBehaviour
             HideAllTutorialObjects();
             SetAllowedCommand(PlayerController.TutorialCommand.Any);
 
+            tutorialFinished = true;
             Invoke(nameof(GoToNextScene), timeBeforeNextScene);
         }
     }
@@ -207,9 +210,9 @@ public class TutorialMessages : MonoBehaviour
         obj.transform.position = startPosition;
         obj.SetActive(true);
 
-        // No tutorial, os obstáculos são visuais.
-        // Quem valida se o jogador apertou a tecla certa é o TutorialMessages,
-        // então o collider dos obstáculos não deve causar Game Over.
+        // No tutorial, os obstáculos são apenas visuais.
+        // O avanço da instrução acontece quando o jogador pressiona
+        // o comando correto, então eles não devem causar Game Over.
         if (obj.CompareTag("Obstacle"))
         {
             Collider2D collider = obj.GetComponent<Collider2D>();
@@ -220,6 +223,7 @@ public class TutorialMessages : MonoBehaviour
             }
         }
     }
+
     void SetMessage(string message, string key, string arrow)
     {
         if (tutorialMessageText != null)
@@ -282,7 +286,9 @@ public class TutorialMessages : MonoBehaviour
         }
         else if (currentStep == 2)
         {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.Space) ||
+                Input.GetKeyDown(KeyCode.W) ||
+                Input.GetKeyDown(KeyCode.UpArrow))
             {
                 CorrectInput();
             }
@@ -317,8 +323,6 @@ public class TutorialMessages : MonoBehaviour
 
     void GoToNextScene()
     {
-        tutorialFinished = true;
-
         HideAllTutorialObjects();
 
         if (playerController != null)
@@ -335,8 +339,8 @@ public class TutorialMessages : MonoBehaviour
         {
             obj.SetActive(active);
 
-            // Quando esconder o objeto, reativa o collider para não quebrar
-            // caso esse mesmo objeto/prefab seja usado depois.
+            // Ao esconder o objeto, o collider volta a ficar ativo,
+            // caso ele seja reutilizado posteriormente.
             if (!active && obj.CompareTag("Obstacle"))
             {
                 Collider2D collider = obj.GetComponent<Collider2D>();
